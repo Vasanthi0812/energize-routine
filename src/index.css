@@ -7,43 +7,43 @@
 @layer base {
   :root {
     --background: 88 49% 95%;
-    --foreground: 222.2 84% 4.9%;
+    --foreground: 122 50% 24%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 122 50% 24%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 122 50% 24%;
 
-    --primary: 220 80% 56%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 0 68% 47%;
+    --primary-foreground: 0 0% 100%;
 
     --secondary: 88 30% 96%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary-foreground: 122 50% 24%;
 
     --muted: 88 20% 93%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted-foreground: 122 40% 33%;
 
-    --accent: 88 40% 90%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 54 100% 62%;
+    --accent-foreground: 122 50% 24%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
     --border: 88 25% 90%;
     --input: 88 25% 90%;
-    --ring: 222.2 84% 4.9%;
+    --ring: 0 68% 47%;
 
     --radius: 1rem;
 
     --sidebar-background: 88 40% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-foreground: 122 50% 24%;
+    --sidebar-primary: 0 68% 47%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 54 100% 62%;
+    --sidebar-accent-foreground: 122 50% 24%;
     --sidebar-border: 88 15% 90%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-ring: 0 68% 47%;
   }
 
   .dark {
@@ -93,7 +93,10 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
-  /* Custom scroll bar */
+  h1, h2, h3, h4, h5, h6 {
+    @apply text-foreground font-semibold;
+  }
+
   ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
@@ -111,7 +114,6 @@
     @apply bg-muted-foreground/30;
   }
 
-  /* Smooth transitions */
   .card-transition {
     @apply transition-all duration-300 ease-out;
   }
