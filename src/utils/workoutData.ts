@@ -1,4 +1,3 @@
-
 export interface Exercise {
   id: string;
   name: string;
@@ -34,7 +33,7 @@ const exercises: Exercise[] = [
   {
     id: 'e3',
     name: 'Push-ups (Modified)',
-    description: 'Perform push-ups with knees on the ground for a modified version that's easier on your upper body.',
+    description: 'Perform push-ups with knees on the ground for a modified version that\'s easier on your upper body.',
     duration: 30,
   },
   {
