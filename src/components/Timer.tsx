@@ -84,11 +84,20 @@ const Timer: React.FC<TimerProps> = ({
       onTogglePause(); // Pause the timer first
     }
   };
+
+  // When clicking on the timer circle, toggle pause state
+  const handleTimerClick = () => {
+    onTogglePause();
+  };
   
   return (
     <div className="relative w-full max-w-xs mx-auto">
       <div className="flex flex-col items-center justify-center">
-        <div className="relative flex items-center justify-center w-48 h-48 mb-4">
+        <div 
+          className="relative flex items-center justify-center w-48 h-48 mb-4 cursor-pointer transform transition-transform hover:scale-105" 
+          onClick={handleTimerClick}
+          aria-label={isPaused ? "Start timer" : "Pause timer"}
+        >
           {/* Background circle */}
           <div className="absolute inset-0 rounded-full bg-secondary"></div>
           
@@ -138,6 +147,18 @@ const Timer: React.FC<TimerProps> = ({
               {isRest ? 'REST' : 'WORK'}
             </span>
           </div>
+
+          {/* Play/Pause overlay icon that appears on hover */}
+          <div className={cn(
+            "absolute inset-0 flex items-center justify-center rounded-full bg-black bg-opacity-0 opacity-0 transition-all duration-300 hover:bg-opacity-10 hover:opacity-100",
+            isPaused ? "text-green-500" : "text-white"
+          )}>
+            {isPaused ? (
+              <Play className="h-16 w-16" />
+            ) : (
+              <Pause className="h-16 w-16" />
+            )}
+          </div>
         </div>
         
         {/* Control buttons */}
@@ -173,4 +194,3 @@ const Timer: React.FC<TimerProps> = ({
 };
 
 export default Timer;
-
