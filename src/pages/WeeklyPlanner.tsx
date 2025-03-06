@@ -81,7 +81,7 @@ const WeeklyPlanner = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#F1F8E9] px-4 py-10 md:py-20">
+    <div className="min-h-screen bg-[#F1F8E9] px-4 py-10 md:py-16 pb-20">
       <div className="container max-w-6xl mx-auto">
         <header className="text-center mb-12 animate-fade-in">
           <h1 className="text-4xl md:text-5xl font-bold mb-4 text-[#1B5E20]">Weekly Workout Planner</h1>

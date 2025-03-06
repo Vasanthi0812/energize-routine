@@ -93,7 +93,7 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-secondary/30 px-4 py-10 md:py-20">
+    <div className="min-h-screen bg-gradient-to-b from-background to-secondary/30 px-4 py-10 md:py-16 pb-20">
       <div className="container max-w-5xl mx-auto">
         <header className="text-center mb-12 animate-fade-in">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Fitness Flow</h1>
