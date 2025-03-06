@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useToast } from '@/components/ui/use-toast';
 import DifficultySelector from '@/components/DifficultySelector';
@@ -13,18 +12,15 @@ const Index = () => {
   const [currentExerciseIndex, setCurrentExerciseIndex] = useState<number>(-1);
   const [isResting, setIsResting] = useState<boolean>(false);
   const [isWorkoutComplete, setIsWorkoutComplete] = useState<boolean>(false);
-  const [isPaused, setIsPaused] = useState<boolean>(false);
+  const [isPaused, setIsPaused] = useState<boolean>(true);
   const [totalWorkoutTime, setTotalWorkoutTime] = useState<number>(0);
 
-  // Effect to calculate total workout time
   useEffect(() => {
     if (workout) {
       let total = 0;
-      // Add all exercise durations
       workout.exercises.forEach(exercise => {
         total += exercise.duration;
       });
-      // Add rest periods (number of exercises - 1) * rest time
       total += (workout.exercises.length - 1) * workout.restBetweenExercises;
       setTotalWorkoutTime(total);
     }
@@ -36,6 +32,7 @@ const Index = () => {
     setCurrentExerciseIndex(-1);
     setIsResting(false);
     setIsWorkoutComplete(false);
+    setIsPaused(true);
   };
 
   const handleGenerateWorkout = () => {
@@ -46,6 +43,7 @@ const Index = () => {
     setCurrentExerciseIndex(-1);
     setIsResting(false);
     setIsWorkoutComplete(false);
+    setIsPaused(true);
     
     toast({
       title: "Workout Generated",
@@ -54,20 +52,21 @@ const Index = () => {
   };
 
   const handleStartWorkout = () => {
+    console.log("Starting workout");
     setCurrentExerciseIndex(0);
     setIsPaused(false);
   };
 
   const handleExerciseComplete = () => {
+    console.log("Exercise completed");
     if (!workout) return;
     
     const nextIndex = currentExerciseIndex + 1;
     
-    // If there are more exercises, set up rest period
     if (nextIndex < workout.exercises.length) {
       setIsResting(true);
+      setIsPaused(false);
     } else {
-      // All exercises completed
       setIsWorkoutComplete(true);
       toast({
         title: "Workout Complete!",
@@ -77,11 +76,14 @@ const Index = () => {
   };
 
   const handleRestComplete = () => {
+    console.log("Rest completed");
     setIsResting(false);
     setCurrentExerciseIndex(prev => prev + 1);
+    setIsPaused(false);
   };
 
   const handleTogglePause = () => {
+    console.log("Toggling pause state");
     setIsPaused(prev => !prev);
   };
 
@@ -90,6 +92,7 @@ const Index = () => {
     setCurrentExerciseIndex(-1);
     setIsResting(false);
     setIsWorkoutComplete(false);
+    setIsPaused(true);
   };
 
   return (
@@ -120,7 +123,6 @@ const Index = () => {
           </>
         ) : (
           <div className="animate-scale-in">
-            {/* Workout header */}
             <div className="text-center mb-8">
               <div className="inline-block bg-primary/10 text-primary font-medium px-4 py-1 rounded-full text-sm mb-3">
                 {selectedDifficulty?.toUpperCase()} WORKOUT
@@ -131,7 +133,6 @@ const Index = () => {
               </p>
             </div>
             
-            {/* Timer section (visible during workout) */}
             {currentExerciseIndex >= 0 && !isWorkoutComplete && (
               <div className="mb-10">
                 <div className="glass-effect max-w-md mx-auto rounded-2xl p-6 text-center">
@@ -166,7 +167,6 @@ const Index = () => {
               </div>
             )}
             
-            {/* Exercise list */}
             <div className="space-y-4 mb-8">
               {workout.exercises.map((exercise, index) => (
                 <WorkoutCard
@@ -179,7 +179,6 @@ const Index = () => {
               ))}
             </div>
             
-            {/* Action buttons */}
             <div className="flex flex-col md:flex-row items-center justify-center gap-4 mt-10">
               {currentExerciseIndex === -1 && !isWorkoutComplete && (
                 <button

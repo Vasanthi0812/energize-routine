@@ -31,36 +31,56 @@ const Timer: React.FC<TimerProps> = ({
     // Reset timer when duration changes
     setTimeLeft(duration);
     setIsCompleted(false);
+    
+    // Clear any existing intervals when duration changes
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
   }, [duration]);
   
   useEffect(() => {
+    console.log('Timer state:', { isPaused, isCompleted, timeLeft });
+    
     if (!isPaused && !isCompleted) {
       // Start animation
       setIsAnimating(true);
       
+      // Clear any existing interval before setting a new one
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+      
       intervalRef.current = window.setInterval(() => {
         setTimeLeft((prev) => {
-          if (prev <= 1) {
+          const newTime = prev - 1;
+          console.log('Updating time:', newTime);
+          
+          if (newTime <= 0) {
             clearInterval(intervalRef.current!);
             setIsCompleted(true);
             setIsAnimating(false);
             onComplete();
             return 0;
           }
-          return prev - 1;
+          return newTime;
         });
       }, 1000);
+      
+      console.log('Interval set:', intervalRef.current);
     } else {
       // Pause animation
       setIsAnimating(false);
       
       if (intervalRef.current) {
+        console.log('Clearing interval:', intervalRef.current);
         clearInterval(intervalRef.current);
       }
     }
     
     return () => {
       if (intervalRef.current) {
+        console.log('Cleanup: clearing interval', intervalRef.current);
         clearInterval(intervalRef.current);
       }
     };
@@ -87,6 +107,7 @@ const Timer: React.FC<TimerProps> = ({
 
   // When clicking on the timer circle, toggle pause state
   const handleTimerClick = () => {
+    console.log('Timer clicked, toggling pause state');
     onTogglePause();
   };
   
